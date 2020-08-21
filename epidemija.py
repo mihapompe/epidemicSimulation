@@ -60,7 +60,6 @@ def epidemija(N, a1, a2, bt, b_p, v):	#v - številka simulacije; a1 - začetni p
 	people[randint(0, N)].status = "K"
 
 
-
 	for i in range(t):
 		stats.append(calculate_grid_stats(people, states, N))
 		last_stat = stats[-1]
@@ -99,9 +98,9 @@ def epidemija(N, a1, a2, bt, b_p, v):	#v - številka simulacije; a1 - začetni p
 		for cell in cells:
 			if (cell.status == "D"):		#  Dc -> Kc,  D -> Ki
 				check_if_any_K(cell, i, people)
-			if (cell.status == "K"):
+			else if (cell.status == "K"):
 				check_if_any_B(cell, i, people)
-			if (cell.status == "B"):
+			else if (cell.status == "B"):
 				check_all_for_type(cell, i, people, "O")
 
 		#####   General level   #####
@@ -145,6 +144,8 @@ def epidemija(N, a1, a2, bt, b_p, v):	#v - številka simulacije; a1 - začetni p
 	parametri = ("Število ljudi {}, a1 {}%, a2 {}%, kužna doba {} dni, bolna doba {} dni".format(N, (a1)*100, a2*100, kuzna_doba, bolna_doba))
 	epidemija_len = ("Trajanje epidemije: " + str(len(D)) + " dni")
 
+	# Prikaz rezultatov
+	
 	# Personal spread
 	hist_people = np.array(hist_people)
 	plt.xlabel("Številka osebe")
@@ -167,7 +168,6 @@ def epidemija(N, a1, a2, bt, b_p, v):	#v - številka simulacije; a1 - začetni p
 	plt.savefig("Cell_distribution_{}".format(v+1))
 	plt.clf()
 
-
 	# Disease progression
 	while (bt[-1] == 1):
 		bt.pop()
@@ -178,7 +178,6 @@ def epidemija(N, a1, a2, bt, b_p, v):	#v - številka simulacije; a1 - začetni p
 	plt.title("Porazdelitev verjetnosti obolelosti od nastopa okužbe")
 	plt.savefig("Disease_progression")
 	plt.clf()
-
 
 	# Epidemic progression
 	#plt.title(final_state_str + "\n" + max_str + "\n" + parametri + "\n" + epidemija_len)
