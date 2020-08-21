@@ -1,1 +1,1 @@
-# epidemicSimulation
+# Epidemic Simulation
